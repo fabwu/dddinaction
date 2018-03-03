@@ -9,6 +9,26 @@ use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
 {
+    public function testTwoMoneyWithSameAmountAreEqual()
+    {
+        $money1 = new Money(1, 2, 3, 4, 5, 6);
+        $money2 = new Money(1, 2, 3, 4, 5, 6);
+
+        $isEquals = $money1->isEquals($money2);
+
+        $this->assertTrue($isEquals);
+    }
+
+    public function testTwoMoneyWithDifferentAmountAreNotEqual()
+    {
+        $money1 = new Money(1, 2, 3, 4, 5, 6);
+        $money2 = new Money(1, 2, 100, 4, 5, 6);
+
+        $isEquals = $money1->isEquals($money2);
+
+        $this->assertFalse($isEquals);
+    }
+
     public function testSumOfTwoMoneyReturnNewMoney()
     {
         $money1 = new Money(1, 2, 3, 4, 5, 6);

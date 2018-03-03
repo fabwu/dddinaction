@@ -1,0 +1,41 @@
+<?php
+
+
+namespace App\Domain;
+
+
+class Entity
+{
+    private $id;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function isEquals($other): bool
+    {
+        if ($other === null) {
+            return false;
+        }
+
+        if ($this === $other) {
+            return true;
+        }
+
+        if ( ! $other instanceof self) {
+            return false;
+        }
+
+        if ($this->id === null || $other->id === null) {
+            return false;
+        }
+
+        return $this->id === $other->id;
+    }
+
+    public function isNotEquals($other): bool
+    {
+        return ! $this->isEquals($other);
+    }
+}

@@ -6,7 +6,7 @@ namespace App\Domain;
 
 use LogicException;
 
-class Money
+class Money extends ValueObject
 {
     private $oneCentCount;
     private $tenCentCount;
@@ -27,6 +27,41 @@ class Money
         $this->oneDollarCount    = $oneDollarCount;
         $this->fiveDollarCount   = $fiveDollarCount;
         $this->twentyDollarCount = $twentyDollarCount;
+    }
+
+    public static function TwentyDollar(): Money
+    {
+        return new Money(0, 0, 0, 0, 0, 1);
+    }
+
+    public static function FiveDollar(): Money
+    {
+        return new Money(0, 0, 0, 0, 1, 0);
+    }
+
+    public static function Dollar(): Money
+    {
+        return new Money(0, 0, 0, 1, 0, 0);
+    }
+
+    public static function Quarter(): Money
+    {
+        return new Money(0, 0, 1, 0, 0, 0);
+    }
+
+    public static function TenCent(): Money
+    {
+        return new Money(0, 1, 0, 0, 0, 0);
+    }
+
+    public static function Cent(): Money
+    {
+        return new Money(1, 0, 0, 0, 0, 0);
+    }
+
+    public static function None(): Money
+    {
+        return new Money(0, 0, 0, 0, 0, 0);
     }
 
     public function add(Money $m): Money
@@ -92,5 +127,17 @@ class Money
     public function getTwentyDollarCount()
     {
         return $this->twentyDollarCount;
+    }
+
+    public function isEquals($obj): bool
+    {
+        return
+            $obj instanceof self &&
+            $this->oneCentCount === $obj->oneCentCount &&
+            $this->tenCentCount === $obj->tenCentCount &&
+            $this->quarterCount === $obj->quarterCount &&
+            $this->oneDollarCount === $obj->oneDollarCount &&
+            $this->fiveDollarCount === $obj->fiveDollarCount &&
+            $this->twentyDollarCount === $obj->twentyDollarCount;
     }
 }
