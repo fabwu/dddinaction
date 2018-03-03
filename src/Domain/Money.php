@@ -41,6 +41,29 @@ class Money
         );
     }
 
+    public function sub(Money $m): Money
+    {
+        return new Money(
+            $this->oneCentCount - $m->oneCentCount,
+            $this->tenCentCount - $m->tenCentCount,
+            $this->quarterCount - $m->quarterCount,
+            $this->oneDollarCount - $m->oneDollarCount,
+            $this->fiveDollarCount - $m->fiveDollarCount,
+            $this->twentyDollarCount - $m->twentyDollarCount
+        );
+    }
+
+    public function getAmount()
+    {
+        return
+            0.01 * $this->oneCentCount +
+            0.1 * $this->tenCentCount +
+            0.25 * $this->quarterCount +
+            1 * $this->oneDollarCount +
+            5 * $this->fiveDollarCount +
+            20 * $this->twentyDollarCount;
+    }
+
     public function getOneCentCount()
     {
         return $this->oneCentCount;

@@ -24,6 +24,56 @@ class MoneyTest extends TestCase
         $this->assertEquals(12, $sum->getTwentyDollarCount());
     }
 
+    public function testSubstractionOfTwoMoneysProducesCorrectResult()
+    {
+        $money1 = new Money(10, 10, 10, 10, 10, 10);
+        $money2 = new Money(1, 2, 3, 4, 5, 6);
+
+        $result = $money1->sub($money2);
+
+        $this->assertEquals(9, $result->getOneCentCount());
+        $this->assertEquals(8, $result->getTenCentCount());
+        $this->assertEquals(7, $result->getQuarterCount());
+        $this->assertEquals(6, $result->getOneDollarCount());
+        $this->assertEquals(5, $result->getFiveDollarCount());
+        $this->assertEquals(4, $result->getTwentyDollarCount());
+    }
+
+    public function testShouldNotSubstractMoreThanExists()
+    {
+        $money1 = new Money(0, 1, 0, 0, 0, 0);
+        $money2 = new Money(1, 0, 0, 0, 0, 0);
+
+        $this->expectException(LogicException::class);
+
+        $money1->sub($money2);
+    }
+
+    /**
+     * @dataProvider amountProvider
+     */
+    public function testAmountCalculatedCorrectly($a, $b, $c, $d, $e, $f, $amount)
+    {
+        $money = new Money($a, $b, $c, $d, $e, $f);
+
+        $this->assertEquals($amount, $money->getAmount());
+    }
+
+    public function amountProvider()
+    {
+        return [
+            [0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0.01],
+            [1, 2, 0, 0, 0, 0, 0.21],
+            [1, 2, 3, 0, 0, 0, 0.96],
+            [1, 2, 3, 4, 0, 0, 4.96],
+            [1, 2, 3, 4, 5, 0, 29.96],
+            [1, 2, 3, 4, 5, 6, 149.96],
+            [11, 0, 0, 0, 0, 0, 0.11],
+            [110, 0, 0, 0, 100, 0, 501.1],
+        ];
+    }
+
     /**
      * @dataProvider negativProvider
      */
