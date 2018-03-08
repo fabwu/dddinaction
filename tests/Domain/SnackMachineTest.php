@@ -47,6 +47,6 @@ class SnackMachineTest extends TestCase
         $snackMachine->buySnack();
 
         $this->assertEquals(Money::None(), $snackMachine->getMoneyInTransaction());
-        $this->assertEquals(0, $snackMachine->getMoneyInside()->getAmount());
+        $this->assertEquals(2, $snackMachine->getMoneyInside()->getAmount());
     }
 }

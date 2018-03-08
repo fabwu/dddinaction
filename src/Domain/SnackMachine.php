@@ -42,7 +42,7 @@ class SnackMachine extends Entity
 
     public function buySnack()
     {
-        $this->moneyInside->add($this->moneyInTransaction);
+        $this->moneyInside        = $this->moneyInside->add($this->moneyInTransaction);
         $this->moneyInTransaction = Money::None();
     }
 

@@ -140,4 +140,15 @@ class Money extends ValueObject
             $this->fiveDollarCount === $obj->fiveDollarCount &&
             $this->twentyDollarCount === $obj->twentyDollarCount;
     }
+
+    public function __toString()
+    {
+        $amount = $this->getAmount();
+
+        if ($amount < 1) {
+            return '¢ ' . $amount * 100;
+        }
+
+        return '$ ' . $amount;
+    }
 }

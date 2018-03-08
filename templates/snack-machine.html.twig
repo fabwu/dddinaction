@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container text-center mt-5">
+        <h1 class="mb-4">Snackmachine</h1>
+        <p>
+            <a class="btn btn-success" href="{{ path('snack-machine-buy-snack') }}">Buy a Snack</a>
+            <a class="btn btn-warning" href="{{ path('snack-machine-return-money') }}">Return money</a>
+        </p>
+        <p>Money inserted: <strong>{{ snackMachine.moneyInTransaction }}</strong></p>
+        <p>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'one-cent'}) }}">Put ¢1</a>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'ten-cent'}) }}">Put ¢10</a>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'quarter'}) }}">Put ¢25</a>
+        </p>
+        <p>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'one-dollar'}) }}">Put $1</a>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'five-dollar'}) }}">Put $5</a>
+            <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'twenty-dollar'}) }}">Put $20</a>
+        </p>
+        <p>Money inside:</p>
+        <p>
+            <img src="img/1c.png" width="80px"> {{ snackMachine.moneyInside.oneCentCount }}
+            <img src="img/10c.png" width="80px"> {{ snackMachine.moneyInside.tenCentCount }}
+            <img src="img/25c.png" width="80px"> {{ snackMachine.moneyInside.quarterCount }}
+        </p>
+        <p>
+            <img src="img/1d.png" width="80px"> {{ snackMachine.moneyInside.oneDollarCount }}
+            <img src="img/5d.png" width="80px"> {{ snackMachine.moneyInside.fiveDollarCount }}
+            <img src="img/20d.png" width="80px"> {{ snackMachine.moneyInside.twentyDollarCount }}
+        </p>
+    </div>
+{% endblock %}
