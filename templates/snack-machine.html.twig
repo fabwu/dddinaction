@@ -18,7 +18,7 @@
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'five-dollar'}) }}">Put $5</a>
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'twenty-dollar'}) }}">Put $20</a>
         </p>
-        <p>Money inside:</p>
+        <p>Money inside: <strong>{{ snackMachine.moneyInside }}</strong></p>
         <p>
             <img src="img/1c.png" width="80px"> {{ snackMachine.moneyInside.oneCentCount }}
             <img src="img/10c.png" width="80px"> {{ snackMachine.moneyInside.tenCentCount }}
