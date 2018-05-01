@@ -149,6 +149,6 @@ class Money extends ValueObject
             return '¢ ' . $amount * 100;
         }
 
-        return '$ ' . $amount;
+        return '$ ' . sprintf('%01.2f', $amount);
     }
 }

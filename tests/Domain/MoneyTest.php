@@ -115,4 +115,11 @@ class MoneyTest extends TestCase
             [0, 0, 0, 0, 0, -1],
         ];
     }
+
+    public function test_to_string()
+    {
+        $oneDollarAndTenCents = Money::Dollar()->add(Money::TenCent());
+
+        $this->assertEquals('$ 1.10', (string)$oneDollarAndTenCents);
+    }
 }
