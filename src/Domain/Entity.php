@@ -4,8 +4,18 @@
 namespace App\Domain;
 
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\MappedSuperclass
+ */
 class Entity
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
     private $id;
 
     public function getId()

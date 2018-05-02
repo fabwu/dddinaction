@@ -15,13 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SnackMachineController extends Controller
 {
-    private $session;
-
-    public function __construct(SessionInterface $session)
-    {
-        $this->session = $session;
-    }
-
     /**
      * @Route("/", name="snack-machine-overview")
      */
@@ -77,9 +70,9 @@ class SnackMachineController extends Controller
         return $this->redirectToRoute('snack-machine-overview');
     }
 
-    private function getSnackMachine()
+    private function getSnackMachine(): SnackMachine
     {
-        $snackMachine = $this->session->get('snack-machine');
+        $snackMachine = $this->getDoctrine()->getRepository(SnackMachine::class)->findOneBy([]);
 
         if ($snackMachine === null) {
             $snackMachine = new SnackMachine();
@@ -88,9 +81,11 @@ class SnackMachineController extends Controller
         return $snackMachine;
     }
 
-    private function saveSnackMachine(SnackMachine $snackMachine)
+    private function saveSnackMachine(SnackMachine $snackMachine): void
     {
-        $this->session->set('snack-machine', $snackMachine);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($snackMachine);
+        $manager->flush();
     }
 
     private function getMoney($amount): Money

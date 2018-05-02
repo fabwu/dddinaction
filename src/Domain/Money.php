@@ -4,15 +4,28 @@
 namespace App\Domain;
 
 
+use Doctrine\ORM\Mapping as ORM;
 use LogicException;
 
+/** @ORM\Embeddable */
 class Money extends ValueObject
 {
+    /** @ORM\Column(type="integer") */
     private $oneCentCount;
+
+    /** @ORM\Column(type="integer") */
     private $tenCentCount;
+
+    /** @ORM\Column(type="integer") */
     private $quarterCount;
+
+    /** @ORM\Column(type="integer") */
     private $oneDollarCount;
+
+    /** @ORM\Column(type="integer") */
     private $fiveDollarCount;
+
+    /** @ORM\Column(type="integer") */
     private $twentyDollarCount;
 
     public function __construct($oneCentCount, $tenCentCount, $quarterCount, $oneDollarCount, $fiveDollarCount, $twentyDollarCount)

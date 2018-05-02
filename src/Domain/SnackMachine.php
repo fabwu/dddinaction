@@ -4,13 +4,21 @@
 namespace App\Domain;
 
 
+use Doctrine\ORM\Mapping as ORM;
 use LogicException;
 
+/** @ORM\Entity */
 class SnackMachine extends Entity
 {
-    /** @var Money */
+    /**
+     * @var Money
+     * @ORM\Embedded(class="Money")
+     */
     private $moneyInTransaction;
-    /** @var Money */
+    /**
+     * @var Money
+     * @ORM\Embedded(class="Money")
+     */
     private $moneyInside;
 
     public function __construct()
