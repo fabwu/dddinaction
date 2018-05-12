@@ -27,6 +27,7 @@ down development.
 Run the following commands to install and start the server.
 ```
 composer install
+php bin/console doctrine:migrations:migrate
 php -S localhost:8080 -t public/
 ```
 You can then access the Snack Machine under http://localhost:8080
