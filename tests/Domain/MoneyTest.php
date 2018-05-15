@@ -116,6 +116,31 @@ class MoneyTest extends TestCase
         ];
     }
 
+    public function test_money_allocates_highest_value()
+    {
+        $money = Money::Dollar();
+        $money = $money->add(Money::Quarter());
+        $money = $money->add(Money::Quarter());
+        $money = $money->add(Money::Quarter());
+        $money = $money->add(Money::Quarter());
+
+        $allocatedMoney = $money->allocate(1);
+
+        $this->assertEquals(1, $allocatedMoney->getOneDollarCount());
+        $this->assertEquals(0, $allocatedMoney->getQuarterCount());
+    }
+
+    public function test_strange_edge_case()
+    {
+        $money = Money::Cent();
+        $money = $money->add(Money::TenCent());
+
+        $allocatedMoney = $money->allocate(0.11);
+
+        $this->assertEquals(1, $allocatedMoney->getOneCentCount());
+        $this->assertEquals(1, $allocatedMoney->getTenCentCount());
+    }
+
     public function test_to_string()
     {
         $oneDollarAndTenCents = Money::Dollar()->add(Money::TenCent());

@@ -43,13 +43,13 @@ class SnackMachineController extends Controller
     }
 
     /**
-     * @Route("/snack-machine/buy-snack", name="snack-machine-buy-snack")
+     * @Route("/snack-machine/buy-snack/{position}", name="snack-machine-buy-snack")
      */
-    public function buySnack()
+    public function buySnack(int $position)
     {
         $snackMachine = $this->getSnackMachine();
 
-        $snackMachine->buySnack();
+        $snackMachine->buySnack($position);
 
         $this->saveSnackMachine($snackMachine);
 
@@ -63,9 +63,11 @@ class SnackMachineController extends Controller
     {
         $snackMachine = $this->getSnackMachine();
 
-        $snackMachine->returnMoney();
+        $money = $snackMachine->returnMoney();
 
         $this->saveSnackMachine($snackMachine);
+
+        $this->addFlash('status', $money . ' returned');
 
         return $this->redirectToRoute('snack-machine-overview');
     }

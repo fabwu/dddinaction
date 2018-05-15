@@ -101,6 +101,18 @@ class Money extends ValueObject
         );
     }
 
+    public function multiply(int $multiplier): Money
+    {
+        return new Money(
+            $this->oneCentCount * $multiplier,
+            $this->tenCentCount * $multiplier,
+            $this->quarterCount * $multiplier,
+            $this->oneDollarCount * $multiplier,
+            $this->fiveDollarCount * $multiplier,
+            $this->twentyDollarCount * $multiplier
+        );
+    }
+
     public function getAmount()
     {
         return
@@ -163,5 +175,33 @@ class Money extends ValueObject
         }
 
         return '$ ' . sprintf('%01.2f', $amount);
+    }
+
+    public function allocate(float $amount): Money
+    {
+        $twentyDollarCount = min((int)($amount / 20), $this->twentyDollarCount);
+        $amount            -= $twentyDollarCount * 20;
+
+        $fiveDollarCount = min((int)($amount / 5), $this->fiveDollarCount);
+        $amount          -= $fiveDollarCount * 5;
+
+        $oneDollarCount = min((int)$amount, $this->oneDollarCount);
+        $amount         -= $oneDollarCount;
+
+        $quarterCount = min((int)($amount / 0.25), $this->quarterCount);
+        $amount       -= $quarterCount * 0.25;
+
+        $tenCentCount = min((int)($amount / 0.1), $this->tenCentCount);
+        $amount       -= $tenCentCount * 0.1;
+
+        $oneCentCount = min($amount / 0.01, $this->oneCentCount);
+
+        return new Money(
+            $oneCentCount,
+            $tenCentCount,
+            $quarterCount,
+            $oneDollarCount,
+            $fiveDollarCount,
+            $twentyDollarCount);
     }
 }

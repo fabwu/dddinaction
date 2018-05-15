@@ -3,10 +3,8 @@
 {% block body %}
     <div class="container text-center mt-5">
         <h1 class="mb-4">Snackmachine</h1>
-        <p>
-            <a class="btn btn-success" href="{{ path('snack-machine-buy-snack') }}">Buy a Snack</a>
-            <a class="btn btn-warning" href="{{ path('snack-machine-return-money') }}">Return money</a>
-        </p>
+        <p>Status: {{ app.flashes('status')|first|default('-') }}</p>
+
         <p>Money inserted: <strong>{{ snackMachine.moneyInTransaction }}</strong></p>
         <p>
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'one-cent'}) }}">Put ¢1</a>
@@ -17,6 +15,14 @@
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'one-dollar'}) }}">Put $1</a>
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'five-dollar'}) }}">Put $5</a>
             <a class="btn btn-primary" href="{{ path('snack-machine-insert-money', {'amount': 'twenty-dollar'}) }}">Put $20</a>
+        </p>
+        <p>
+            <a class="btn btn-warning" href="{{ path('snack-machine-return-money') }}">Return money</a>
+        </p>
+        <p>
+            <a href="{{ path('snack-machine-buy-snack', {'position': 1}) }}"><img width="100px" src="img/Chocolate.png"></a>
+            <a href="{{ path('snack-machine-buy-snack', {'position': 1}) }}"><img width="100px" src="img/Soda.png"></a>
+            <a href="{{ path('snack-machine-buy-snack', {'position': 1}) }}"><img width="100px" src="img/Gum.png"></a>
         </p>
         <p>Money inside: <strong>{{ snackMachine.moneyInside }}</strong></p>
         <p>

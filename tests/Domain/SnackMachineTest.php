@@ -15,7 +15,7 @@ class SnackMachineTest extends TestCase
         $snackMachine->insertMoney(Money::Cent());
         $snackMachine->insertMoney(Money::Dollar());
 
-        $this->assertEquals(1.01, $snackMachine->getMoneyInTransaction()->getAmount());
+        $this->assertEquals(1.01, $snackMachine->getMoneyInTransaction());
     }
 
     public function testCannotInsertMoreThanOneCoinOrNoteAtATime()
@@ -35,18 +35,81 @@ class SnackMachineTest extends TestCase
 
         $snackMachine->returnMoney();
 
-        $this->assertEquals(0, $snackMachine->getMoneyInTransaction()->getAmount());
+        $this->assertEquals(0, $snackMachine->getMoneyInTransaction());
     }
 
-    public function test_money_in_transaction_goes_to_money_inside_after_purchase()
+    public function test_buy_snack_trades_inserted_money_for_a_snack()
     {
         $snackMachine = new SnackMachine();
-        $snackMachine->insertMoney(Money::Dollar());
+        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 3, 1));
         $snackMachine->insertMoney(Money::Dollar());
 
-        $snackMachine->buySnack();
+        $snackMachine->buySnack(1);
 
-        $this->assertEquals(Money::None(), $snackMachine->getMoneyInTransaction());
-        $this->assertEquals(2, $snackMachine->getMoneyInside()->getAmount());
+        $this->assertEquals(0, $snackMachine->getMoneyInTransaction());
+        $this->assertEquals(1, $snackMachine->getMoneyInside()->getAmount());
+
+        $this->assertEquals(2, $snackMachine->getSnackPile(1)->getQuantity());
+    }
+
+    public function test_cannot_make_purchase_when_there_is_no_snack()
+    {
+        $this->expectException(InvalidOperationException::class);
+
+        $snackMachine = new SnackMachine();
+        $snackMachine->buySnack(1);
+    }
+
+    public function test_cannot_make_purchase_if_not_enough_money_inserted()
+    {
+        $snackMachine = new SnackMachine();
+        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 2));
+        $snackMachine->insertMoney(Money::Dollar());
+
+        $this->expectException(InvalidOperationException::class);
+
+        $snackMachine->buySnack(1);
+    }
+
+    public function test_snack_machine_returns_money_with_highest_denomination_first()
+    {
+        $snackMachine = new SnackMachine();
+        $snackMachine->loadMoney(Money::Dollar());
+
+        $snackMachine->insertMoney(Money::Quarter());
+        $snackMachine->insertMoney(Money::Quarter());
+        $snackMachine->insertMoney(Money::Quarter());
+        $snackMachine->insertMoney(Money::Quarter());
+        $returnedMoney = $snackMachine->returnMoney();
+
+        $this->assertEquals(4, $snackMachine->getMoneyInside()->getQuarterCount());
+        $this->assertEquals(0, $snackMachine->getMoneyInside()->getOneDollarCount());
+        $this->assertEquals(1, $returnedMoney->getOneDollarCount());
+    }
+
+    public function test_after_purchase_change_is_returned()
+    {
+        $snackMachine = new SnackMachine();
+        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 0.5));
+        $snackMachine->loadMoney(Money::TenCent()->multiply(10));
+
+
+        $snackMachine->insertMoney(Money::Dollar());
+        $snackMachine->buySnack(1);
+
+        $this->assertEquals(1.5, $snackMachine->getMoneyInside()->getAmount());
+        $this->assertEquals(0, $snackMachine->getMoneyInTransaction());
+    }
+
+    public function test_cannot_buy_snack_if_not_enough_change()
+    {
+        $snackMachine = new SnackMachine();
+        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 0.5));
+        $snackMachine->insertMoney(Money::Dollar());
+
+        $this->expectException(InvalidOperationException::class);
+
+        $snackMachine->buySnack(1);
+
     }
 }
