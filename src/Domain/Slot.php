@@ -3,10 +3,24 @@
 
 namespace App\Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Entity */
 class Slot extends Entity
 {
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $position;
+    /**
+     * @var SnackPile
+     * @ORM\Embedded(class="App\Domain\SnackPile")
+     */
     private $snackPile;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\SnackMachine", inversedBy="slots")
+     */
     private $snackMachine;
 
     public function __construct(SnackMachine $snackMachine, int $position)

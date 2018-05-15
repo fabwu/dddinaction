@@ -24,6 +24,7 @@ class SnackMachine extends AggregateRoot
 
     /**
      * @var Slot[] | ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Domain\Slot", mappedBy="snackMachine")
      */
     private $slots;
 

@@ -3,11 +3,18 @@
 
 namespace App\Domain;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/** @ORM\Embeddable */
 class SnackPile extends ValueObject
 {
+    /** @ORM\ManyToOne(targetEntity="App\Domain\Snack") */
     private $snack;
+
+    /** @ORM\Column(type="integer") */
     private $quantity;
+
+    /** @ORM\Column(type="float") */
     private $price;
 
     public function __construct(Snack $snack = null, int $quantity, float $price)
