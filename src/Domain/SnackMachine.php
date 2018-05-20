@@ -102,6 +102,15 @@ class SnackMachine extends AggregateRoot
         return $this->getSlot($position)->getSnackPile();
     }
 
+    public function getAllSnackPiles(): array
+    {
+        return $this->slots
+            ->map(function (Slot $slot) {
+                return $slot->getSnackPile();
+            })
+            ->getValues();
+    }
+
     public function loadSnack(int $position, SnackPile $snackPile): void
     {
         $slot = $this->getSlot($position);

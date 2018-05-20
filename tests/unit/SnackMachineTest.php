@@ -112,4 +112,26 @@ class SnackMachineTest extends TestCase
         $snackMachine->buySnack(1);
 
     }
+
+    public function test_get_all_snack_piles()
+    {
+        $snackMachine = new SnackMachine();
+        $sp1          = new SnackPile(Snack::Chocolate(), 1, 0.1);
+        $sp2          = new SnackPile(Snack::Soda(), 2, 0.2);
+        $sp3          = new SnackPile(Snack::Gum(), 3, 0.3);
+        $snackMachine->loadSnack(1, $sp1);
+        $snackMachine->loadSnack(2, $sp2);
+        $snackMachine->loadSnack(3, $sp3);
+
+        $snackPiles = $snackMachine->getAllSnackPiles();
+
+        $this->assertCount(3, $snackPiles);
+        $this->assertEquals($sp1, $snackPiles[0]);
+        $this->assertEquals($sp2, $snackPiles[1]);
+        $this->assertEquals($sp3, $snackPiles[2]);
+
+        // Check read only collection
+        $snackPiles[3] = SnackPile::Empty();
+        $this->assertCount(3, $snackMachine->getAllSnackPiles());
+    }
 }

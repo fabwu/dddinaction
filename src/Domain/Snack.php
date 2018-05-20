@@ -29,6 +29,14 @@ class Snack extends AggregateRoot
         return new self(3, 'Gum');
     }
 
+    /**
+     * @return Snack[]
+     */
+    public static function getAllSnacks(): array
+    {
+        return [self::None(), self::Chocolate(), self::Soda(), self::Gum()];
+    }
+
     /** @ORM\Column(type="string") */
     private $name;
 
@@ -39,6 +47,11 @@ class Snack extends AggregateRoot
     }
 
     public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function __toString()
     {
         return $this->name;
     }

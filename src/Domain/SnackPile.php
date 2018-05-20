@@ -46,6 +46,15 @@ class SnackPile extends ValueObject
         return $newSnackPile;
     }
 
+    public function getSnack(): Snack
+    {
+        $snackArray = array_filter(Snack::getAllSnacks(), function (Snack $snack) {
+            return $snack->getId() === $this->snackId;
+        });
+
+        return array_shift($snackArray);
+    }
+
     public function getQuantity(): int
     {
         return $this->quantity;
