@@ -17,7 +17,12 @@ class SnackPile extends ValueObject
     /** @ORM\Column(type="float") */
     private $price;
 
-    public function __construct(int $snackId, int $quantity, float $price)
+    public static function Empty()
+    {
+        return new self(Snack::None(), 0, 0.0);
+    }
+
+    public function __construct(Snack $snack, int $quantity, float $price)
     {
         if ($quantity < 0) {
             throw new InvalidOperationException('Quantity should be greater than zero');
@@ -27,14 +32,18 @@ class SnackPile extends ValueObject
             throw new InvalidOperationException('Price should be greater than zero');
         }
 
-        $this->snackId  = $snackId;
+        $this->snackId  = $snack->getId();
         $this->quantity = $quantity;
         $this->price    = $price;
     }
 
     public function subtractOne(): SnackPile
     {
-        return new SnackPile($this->snackId, $this->quantity - 1, $this->price);
+        $oldSnackId            = $this->snackId;
+        $newSnackPile          = new SnackPile(Snack::None(), $this->quantity - 1, $this->price);
+        $newSnackPile->snackId = $oldSnackId;
+
+        return $newSnackPile;
     }
 
     public function getQuantity(): int

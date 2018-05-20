@@ -16,7 +16,7 @@ class Entity
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="UUID")
      */
-    private $id;
+    protected $id;
 
     public function getId()
     {
