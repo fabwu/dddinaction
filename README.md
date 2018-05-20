@@ -17,6 +17,7 @@ the properties via reflection and can create the proxies.
 - I had to use annotations to describe the orm mapping. I don't really like them because they
 clutter up my entities with persistence logic but the other options (xml, yml, php) don't provide
 refactoring or auto-completion.
+- Doctrine doesn't support entities on embeddables so I just use the id as an integer column.
 
 I also tried to encapsulate the modules via [composer's path setting](https://getcomposer.org/doc/05-repositories.md#path). This was not useful
 because it provides no encapsulation (e.g. Domain module can access UI module) and slows

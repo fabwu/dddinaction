@@ -27,7 +27,7 @@ class Slot extends Entity
     {
         $this->snackMachine = $snackMachine;
         $this->position     = $position;
-        $this->snackPile    = new SnackPile(null, 0, 0.0);
+        $this->snackPile    = new SnackPile(0, 0, 0.0);
     }
 
     public function setSnackPile(SnackPile $snackPile): void

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Tests\Domain;
+namespace App\Domain;
 
 
-use App\Domain\Money;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 

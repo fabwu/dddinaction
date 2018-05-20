@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /** @ORM\Embeddable */
 class SnackPile extends ValueObject
 {
-    /** @ORM\ManyToOne(targetEntity="App\Domain\Snack") */
-    private $snack;
+    /** @ORM\Column(type="integer") */
+    private $snackId;
 
     /** @ORM\Column(type="integer") */
     private $quantity;
@@ -17,7 +17,7 @@ class SnackPile extends ValueObject
     /** @ORM\Column(type="float") */
     private $price;
 
-    public function __construct(Snack $snack = null, int $quantity, float $price)
+    public function __construct(int $snackId, int $quantity, float $price)
     {
         if ($quantity < 0) {
             throw new InvalidOperationException('Quantity should be greater than zero');
@@ -27,19 +27,14 @@ class SnackPile extends ValueObject
             throw new InvalidOperationException('Price should be greater than zero');
         }
 
-        $this->snack    = $snack;
+        $this->snackId  = $snackId;
         $this->quantity = $quantity;
         $this->price    = $price;
     }
 
     public function subtractOne(): SnackPile
     {
-        return new SnackPile($this->snack, $this->quantity - 1, $this->price);
-    }
-
-    public function getSnack(): Snack
-    {
-        return $this->snack;
+        return new SnackPile($this->snackId, $this->quantity - 1, $this->price);
     }
 
     public function getQuantity(): int
@@ -56,7 +51,7 @@ class SnackPile extends ValueObject
     {
         return
             $obj instanceof self &&
-            $this->snack === $obj->snack &&
+            $this->snackId === $obj->snackId &&
             $this->quantity === $obj->quantity &&
             $this->price === $obj->price;
     }

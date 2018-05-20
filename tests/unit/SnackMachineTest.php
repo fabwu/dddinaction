@@ -41,7 +41,7 @@ class SnackMachineTest extends TestCase
     public function test_buy_snack_trades_inserted_money_for_a_snack()
     {
         $snackMachine = new SnackMachine();
-        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 3, 1));
+        $snackMachine->loadSnack(1, new SnackPile(0, 3, 1));
         $snackMachine->insertMoney(Money::Dollar());
 
         $snackMachine->buySnack(1);
@@ -63,7 +63,7 @@ class SnackMachineTest extends TestCase
     public function test_cannot_make_purchase_if_not_enough_money_inserted()
     {
         $snackMachine = new SnackMachine();
-        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 2));
+        $snackMachine->loadSnack(1, new SnackPile(1, 1, 2));
         $snackMachine->insertMoney(Money::Dollar());
 
         $this->expectException(InvalidOperationException::class);
@@ -90,7 +90,7 @@ class SnackMachineTest extends TestCase
     public function test_after_purchase_change_is_returned()
     {
         $snackMachine = new SnackMachine();
-        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 0.5));
+        $snackMachine->loadSnack(1, new SnackPile(1, 1, 0.5));
         $snackMachine->loadMoney(Money::TenCent()->multiply(10));
 
 
@@ -104,7 +104,7 @@ class SnackMachineTest extends TestCase
     public function test_cannot_buy_snack_if_not_enough_change()
     {
         $snackMachine = new SnackMachine();
-        $snackMachine->loadSnack(1, new SnackPile(Snack::Snickers(), 1, 0.5));
+        $snackMachine->loadSnack(1, new SnackPile(1, 1, 0.5));
         $snackMachine->insertMoney(Money::Dollar());
 
         $this->expectException(InvalidOperationException::class);
