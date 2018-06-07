@@ -4,6 +4,7 @@
 namespace App\Domain\SharedKernel;
 
 
+use App\Domain\Common\Utility;
 use App\Domain\Common\ValueObject;
 use Doctrine\ORM\Mapping as ORM;
 use LogicException;
@@ -169,13 +170,7 @@ class Money extends ValueObject
 
     public function __toString()
     {
-        $amount = $this->getAmount();
-
-        if ($amount < 1) {
-            return '¢ ' . $amount * 100;
-        }
-
-        return '$ ' . sprintf('%01.2f', $amount);
+        return Utility::moneyToString($this->getAmount());
     }
 
     public function allocate(float $amount): Money

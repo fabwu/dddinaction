@@ -6,6 +6,7 @@ namespace App\Domain\SnackMachine;
 
 use App\Domain\Common\AggregateRoot;
 use App\Domain\Common\InvalidOperationException;
+use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -93,6 +94,11 @@ class SnackMachine extends AggregateRoot
     public function getMoneyInTransaction(): float
     {
         return $this->moneyInTransaction;
+    }
+
+    public function getMoneyInTransactionAsString(): string
+    {
+        return Utility::moneyToString($this->moneyInTransaction);
     }
 
     public function getMoneyInside(): Money

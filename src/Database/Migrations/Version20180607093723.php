@@ -35,7 +35,7 @@ class Version20180607093723 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__snack_machine');
 
         $this->addSql('INSERT INTO atm(id, money_inside_one_cent_count, money_inside_ten_cent_count, money_inside_quarter_count, money_inside_one_dollar_count, money_inside_five_dollar_count, money_inside_twenty_dollar_count, money_charged) 
-                            VALUES (1,0,0,0,0,0,0,0)');
+                            VALUES (1,100,100,100,100,100,100,0)');
     }
 
     public function down(Schema $schema)

@@ -21,7 +21,7 @@
             <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {'position': 3}) }}">Buy #3</a>
         </div>
         <p class="text-center m-3">
-            Money inserted: <strong>${{ snackMachine.moneyInTransaction|number_format(2) }}</strong>
+            Money inserted: <strong>{{ snackMachine.moneyInTransactionAsString }}</strong>
         </p>
         <div class="d-flex justify-content-between">
             <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'one-cent'}) }}">Put ¢1</a>

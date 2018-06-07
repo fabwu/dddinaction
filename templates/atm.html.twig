@@ -3,26 +3,30 @@
 {% block title %}ATM{% endblock %}
 
 {% block body %}
-    <div class="col-6 text-center">Money inside: <strong>$123</strong></div>
-    <div class="col-6 text-center">Money charged: <strong>$123</strong></div>
+    <div class="col-6 text-center">Money inside: <strong>{{ atm.moneyInside }}</strong></div>
+    <div class="col-6 text-center">Money charged: <strong>{{ atm.moneyChargedAsString }}</strong></div>
 
     <div class="col-12 mt-5 text-center">
         <p>
-            <img src="/img/1c.png" width="80px"> 0
-            <img src="/img/10c.png" width="80px"> 0
-            <img src="/img/25c.png" width="80px"> 0
+            <img src="/img/1c.png" width="80px"> {{ atm.moneyInside.oneCentCount }}
+            <img src="/img/10c.png" width="80px"> {{ atm.moneyInside.tenCentCount }}
+            <img src="/img/25c.png" width="80px"> {{ atm.moneyInside.quarterCount }}
         </p>
         <p>
-            <img src="/img/1d.png" width="80px"> 0
-            <img src="/img/5d.png" width="80px"> 0
-            <img src="/img/20d.png" width="80px"> 0
+            <img src="/img/1d.png" width="80px"> {{ atm.moneyInside.oneDollarCount }}
+            <img src="/img/5d.png" width="80px"> {{ atm.moneyInside.fiveDollarCount }}
+            <img src="/img/20d.png" width="80px"> {{ atm.moneyInside.twentyDollarCount }}
         </p>
     </div>
-    <form class="col-12 text-center mt-5">
+    <form class="col-12 text-center mt-5" action="{{ path('atm-take-money') }}" method="post">
         <div class="form-group">
-            <input type="number" min="0" class="form-control" title="amount">
+            <input type="text" min="0" class="form-control" title="amount" name="amount" placeholder="0">
         </div>
         <button class="btn btn-lg w-100">Take money</button>
     </form>
-    <div class="col-12 text-center mt-5">You have taken $100</div>
+    <div class="col-12 text-center mt-2">
+        {% for message in app.flashes('info') %}
+            {{ message }}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AtmTest extends TestCase
 {
-    public function test_take_money_exchangey_money_with_commission(): void
+    public function test_take_money_exchange_money_with_commission(): void
     {
         $atm = new Atm();
         $atm->loadMoney(Money::Dollar());
@@ -40,32 +40,32 @@ class AtmTest extends TestCase
         $this->assertEquals(1.12, $atm->getMoneyCharged());
     }
 
-    public function test_zero_amount()
+    public function test_zero_amount(): void
     {
         $atm = new Atm();
 
-        $error = $atm->canTakeMoney(0);
+        $this->expectExceptionMessage('Invalid amount');
 
-        $this->assertEquals('Invalid amount', $error);
+        $atm->takeMoney(0);
     }
 
-    public function test_not_enough_money()
+    public function test_not_enough_money(): void
     {
         $atm = new Atm();
         $atm->loadMoney(Money::Dollar());
 
-        $error = $atm->canTakeMoney(2);
+        $this->expectExceptionMessage('Not enough money');
 
-        $this->assertEquals('Not enough money', $error);
+        $atm->takeMoney(2);
     }
 
-    public function test_not_enough_change()
+    public function test_not_enough_change(): void
     {
         $atm = new Atm();
         $atm->loadMoney(Money::Dollar());
 
-        $error = $atm->canTakeMoney(0.5);
+        $this->expectExceptionMessage('Not enough change');
 
-        $this->assertEquals('Not enough change', $error);
+        $atm->takeMoney(0.5);
     }
 }

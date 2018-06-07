@@ -6,6 +6,7 @@ namespace App\Domain\Atm;
 
 use App\Domain\Common\AggregateRoot;
 use App\Domain\Common\InvalidOperationException;
+use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,11 +32,7 @@ class Atm extends AggregateRoot
 
     public function takeMoney(float $amount): void
     {
-        $error = $this->canTakeMoney($amount);
-
-        if ($error !== '') {
-            throw new InvalidOperationException($error);
-        }
+        $this->canTakeMoney($amount);
 
         $output            = $this->moneyInside->allocate($amount);
         $this->moneyInside = $this->moneyInside->sub($output);
@@ -43,21 +40,19 @@ class Atm extends AggregateRoot
         $this->moneyCharged += $this->calculateAmountWithCommission($amount);
     }
 
-    public function canTakeMoney(float $amount): string
+    private function canTakeMoney(float $amount): void
     {
         if ($amount <= 0) {
-            return 'Invalid amount';
+            throw new InvalidOperationException('Invalid amount');
         }
 
         if ($this->moneyInside->getAmount() < $amount) {
-            return 'Not enough money';
+            throw new InvalidOperationException('Not enough money');
         }
 
         if ( ! $this->moneyInside->allocate($amount)->getAmount()) {
-            return 'Not enough change';
+            throw new InvalidOperationException('Not enough change');
         }
-
-        return '';
     }
 
     private function calculateAmountWithCommission(float $amount): float
@@ -84,5 +79,10 @@ class Atm extends AggregateRoot
     public function getMoneyCharged(): float
     {
         return $this->moneyCharged;
+    }
+
+    public function getMoneyChargedAsString(): string
+    {
+        return Utility::moneyToString($this->moneyCharged);
     }
 }
