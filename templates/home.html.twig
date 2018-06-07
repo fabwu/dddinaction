@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Overview{% endblock %}
+
+{% block body %}
+    <div class="col-12 ">
+        <p>
+            This is a simple snack machine implemented in PHP and following the Domain Driven Design
+            principles. Everything is based on the Pluralsight course
+            <a href="https://www.pluralsight.com/courses/domain-driven-design-in-practice">Domain Driven Design in Practice</a>
+            by Vladimir Khorikov.
+        </p>
+        <p class="text-center">Select a bounded context:</p>
+        <p class="text-center">
+            <a href="{{ path('snack-machine-overview') }}" class="btn btn-primary btn-lg w-25">Snack Machine</a>
+            <a href="{{ path('atm-overview') }}" class="btn btn-primary btn-lg w-25">ATM</a>
+        </p>
+    </div>
+{% endblock %}
+

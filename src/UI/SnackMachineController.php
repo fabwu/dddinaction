@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/snack-machine")
+ */
 class SnackMachineController extends Controller
 {
     /**
@@ -26,7 +29,7 @@ class SnackMachineController extends Controller
     }
 
     /**
-     * @Route("/snack-machine/insert-money/{amount}", name="snack-machine-insert-money")
+     * @Route("/insert-money/{amount}", name="snack-machine-insert-money")
      */
     public function insertMoney(Request $request)
     {
@@ -43,7 +46,7 @@ class SnackMachineController extends Controller
     }
 
     /**
-     * @Route("/snack-machine/buy-snack/{position}", name="snack-machine-buy-snack")
+     * @Route("/buy-snack/{position}", name="snack-machine-buy-snack")
      */
     public function buySnack(int $position)
     {
@@ -57,7 +60,7 @@ class SnackMachineController extends Controller
     }
 
     /**
-     * @Route("/snack-machine/return-money", name="snack-machine-return-money")
+     * @Route("/return-money", name="snack-machine-return-money")
      */
     public function returnMoney()
     {
