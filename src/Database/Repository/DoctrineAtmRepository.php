@@ -18,7 +18,7 @@ class DoctrineAtmRepository implements AtmRepository
         $this->repository    = $this->entityManager->getRepository(Atm::class);
     }
 
-    public function find(int $id): ?Atm
+    public function find(int $id): Atm
     {
         return $this->repository->find($id);
     }

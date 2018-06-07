@@ -24,9 +24,11 @@
         </div>
         <button class="btn btn-lg w-100">Take money</button>
     </form>
-    <div class="col-12 text-center mt-2">
-        {% for message in app.flashes('info') %}
-            {{ message }}
-        {% endfor %}
-    </div>
+    {% for message in app.flashes('info') %}
+        <div class="col-12 text-center mt-3 ">
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

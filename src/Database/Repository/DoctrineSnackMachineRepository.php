@@ -11,13 +11,22 @@ class DoctrineSnackMachineRepository implements SnackMachineRepository
 {
     private $repository;
 
+    private $entityManager;
+
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository(SnackMachine::class);
+        $this->entityManager = $entityManager;
+        $this->repository    = $this->entityManager->getRepository(SnackMachine::class);
     }
 
-    public function find(int $id): ?SnackMachine
+    public function find(int $id): SnackMachine
     {
         return $this->repository->find($id);
+    }
+
+    public function save(SnackMachine $snackMachine): void
+    {
+        $this->entityManager->persist($snackMachine);
+        $this->entityManager->flush();
     }
 }

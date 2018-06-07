@@ -4,13 +4,14 @@
 namespace App\UI;
 
 
+use App\Domain\Common\InvalidOperationException;
+use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
-use App\Domain\SnackMachine\SnackMachine;
+use App\Domain\SnackMachine\SnackMachineRepository;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,13 +19,22 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SnackMachineController extends Controller
 {
+    private const SNACK_MACHINE_ID = 1;
+
+    private $snackMachineRepository;
+
+    public function __construct(SnackMachineRepository $snackMachineRepository)
+    {
+        $this->snackMachineRepository = $snackMachineRepository;
+    }
+
     /**
      * @Route("/", name="snack-machine-overview")
      */
-    public function overview(SessionInterface $session): Response
+    public function overview(): Response
     {
         return $this->render('snack-machine.html.twig', [
-            'snackMachine' => $this->getSnackMachine(),
+            'snackMachine' => $this->snackMachineRepository->find(self::SNACK_MACHINE_ID),
         ]);
     }
 
@@ -33,14 +43,19 @@ class SnackMachineController extends Controller
      */
     public function insertMoney(Request $request)
     {
-        $amount = $request->get('amount');
+        $amount       = $request->get('amount');
+        $money        = $this->getMoney($amount);
+        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
 
-        $snackMachine = $this->getSnackMachine();
+        try {
+            $snackMachine->insertMoney($money);
+            $this->snackMachineRepository->save($snackMachine);
+            $message = Utility::moneyToString($money->getAmount()) . ' inserted';
+        } catch (InvalidOperationException $e) {
+            $message = $e->getMessage();
+        }
 
-        $money = $this->getMoney($amount);
-        $snackMachine->insertMoney($money);
-
-        $this->saveSnackMachine($snackMachine);
+        $this->addFlash('info', $message);
 
         return $this->redirectToRoute('snack-machine-overview');
     }
@@ -50,11 +65,17 @@ class SnackMachineController extends Controller
      */
     public function buySnack(int $position)
     {
-        $snackMachine = $this->getSnackMachine();
+        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
 
-        $snackMachine->buySnack($position);
+        try {
+            $snackMachine->buySnack($position);
+            $this->snackMachineRepository->save($snackMachine);
+            $message = 'Snack #' . $position . ' bought';
+        } catch (InvalidOperationException $e) {
+            $message = $e->getMessage();
+        }
 
-        $this->saveSnackMachine($snackMachine);
+        $this->addFlash('info', $message);
 
         return $this->redirectToRoute('snack-machine-overview');
     }
@@ -64,33 +85,19 @@ class SnackMachineController extends Controller
      */
     public function returnMoney()
     {
-        $snackMachine = $this->getSnackMachine();
+        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
 
-        $money = $snackMachine->returnMoney();
-
-        $this->saveSnackMachine($snackMachine);
-
-        $this->addFlash('status', $money . ' returned');
-
-        return $this->redirectToRoute('snack-machine-overview');
-    }
-
-    private function getSnackMachine(): SnackMachine
-    {
-        $snackMachine = $this->getDoctrine()->getRepository(SnackMachine::class)->findOneBy([]);
-
-        if ($snackMachine === null) {
-            $snackMachine = new SnackMachine();
+        try {
+            $money = $snackMachine->returnMoney();
+            $this->snackMachineRepository->save($snackMachine);
+            $message = Utility::moneyToString($money->getAmount()) . ' returned';
+        } catch (InvalidOperationException $e) {
+            $message = $e->getMessage();
         }
 
-        return $snackMachine;
-    }
+        $this->addFlash('info', $message);
 
-    private function saveSnackMachine(SnackMachine $snackMachine): void
-    {
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($snackMachine);
-        $manager->flush();
+        return $this->redirectToRoute('snack-machine-overview');
     }
 
     private function getMoney($amount): Money

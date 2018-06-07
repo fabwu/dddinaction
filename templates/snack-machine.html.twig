@@ -50,4 +50,11 @@
             <img src="/img/20d.png" width="80px"> {{ snackMachine.moneyInside.twentyDollarCount }}
         </p>
     </div>
+    {% for message in app.flashes('info') %}
+        <div class="col-12 text-center mt-2">
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

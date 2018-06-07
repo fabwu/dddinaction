@@ -16,7 +16,7 @@ class DoctrineSnackRepository implements SnackRepository
         $this->repository = $entityManager->getRepository(Snack::class);
     }
 
-    public function find(int $id): ?Snack
+    public function find(int $id): Snack
     {
         return $this->repository->find($id);
     }
