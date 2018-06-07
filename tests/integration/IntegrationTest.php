@@ -3,6 +3,7 @@
 
 namespace App\Tests\integration;
 
+use App\Domain\Atm\AtmRepository;
 use App\Domain\SnackMachine\Snack;
 use App\Domain\SnackMachine\SnackMachineRepository;
 use App\Domain\SnackMachine\SnackRepository;
@@ -33,6 +34,15 @@ class IntegrationTest extends KernelTestCase
         $this->assertEquals($soda->getName(), Snack::Soda()->getName());
         $this->assertEquals($gum->getName(), Snack::Gum()->getName());
         $this->assertNull($none);
+    }
+
+    public function test_atm_repository(): void
+    {
+        $atm = $this->container
+            ->get(AtmRepository::class)
+            ->find(1);
+
+        $this->assertNotNull($atm);
     }
 
     public static $class = Kernel::class;

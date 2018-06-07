@@ -7,6 +7,7 @@ services:
     # You have to maintain this list manually in order to decouple doctrine from Domain
     App\Domain\SnackMachine\SnackMachineRepository: '@App\Database\Repository\DoctrineSnackMachineRepository'
     App\Domain\SnackMachine\SnackRepository: '@App\Database\Repository\DoctrineSnackRepository'
+    App\Domain\Atm\AtmRepository: '@App\Database\Repository\DoctrineAtmRepository'
 
     App\Database\:
       resource: '../src/Database/*'

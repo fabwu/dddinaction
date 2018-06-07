@@ -7,11 +7,18 @@ namespace App\Domain\Atm;
 use App\Domain\Common\AggregateRoot;
 use App\Domain\Common\InvalidOperationException;
 use App\Domain\SharedKernel\Money;
+use Doctrine\ORM\Mapping as ORM;
 
+/** @ORM\Entity */
 class Atm extends AggregateRoot
 {
-    /** @var Money */
+    /**
+     * @var Money
+     * @ORM\Embedded(class="App\Domain\SharedKernel\Money")
+     */
     private $moneyInside;
+
+    /** @ORM\Column(type="float") */
     private $moneyCharged;
 
     private const COMMISSION_RATE = 0.01;
