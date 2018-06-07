@@ -4,8 +4,8 @@
 namespace App\UI;
 
 
-use App\Domain\Money;
-use App\Domain\SnackMachine;
+use App\Domain\SharedKernel\Money;
+use App\Domain\SnackMachine\SnackMachine;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

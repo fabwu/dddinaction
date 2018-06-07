@@ -3,6 +3,9 @@
 namespace App\Domain;
 
 
+use App\Domain\Common\InvalidOperationException;
+use App\Domain\SnackMachine\Snack;
+use App\Domain\SnackMachine\SnackPile;
 use PHPUnit\Framework\TestCase;
 
 class SnackPileTest extends TestCase

@@ -3,6 +3,7 @@
 namespace App\Domain;
 
 
+use App\Domain\SharedKernel\Money;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 

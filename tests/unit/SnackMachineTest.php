@@ -3,6 +3,11 @@
 namespace App\Domain;
 
 
+use App\Domain\Common\InvalidOperationException;
+use App\Domain\SharedKernel\Money;
+use App\Domain\SnackMachine\Snack;
+use App\Domain\SnackMachine\SnackMachine;
+use App\Domain\SnackMachine\SnackPile;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 

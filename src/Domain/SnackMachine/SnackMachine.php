@@ -1,9 +1,12 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\SnackMachine;
 
 
+use App\Domain\Common\AggregateRoot;
+use App\Domain\Common\InvalidOperationException;
+use App\Domain\SharedKernel\Money;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use LogicException;
@@ -18,13 +21,13 @@ class SnackMachine extends AggregateRoot
     private $moneyInTransaction;
     /**
      * @var Money
-     * @ORM\Embedded(class="Money")
+     * @ORM\Embedded(class="App\Domain\SharedKernel\Money")
      */
     private $moneyInside;
 
     /**
      * @var Slot[] | ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Domain\Slot", mappedBy="snackMachine")
+     * @ORM\OneToMany(targetEntity="App\Domain\SnackMachine\Slot", mappedBy="snackMachine")
      */
     private $slots;
 

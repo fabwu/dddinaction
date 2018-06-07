@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\SharedKernel;
 
 
+use App\Domain\Common\ValueObject;
 use Doctrine\ORM\Mapping as ORM;
 use LogicException;
 

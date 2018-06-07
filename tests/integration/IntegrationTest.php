@@ -3,9 +3,9 @@
 
 namespace App\Tests\integration;
 
-use App\Domain\Snack;
-use App\Domain\SnackMachineRepository;
-use App\Domain\SnackRepository;
+use App\Domain\SnackMachine\Snack;
+use App\Domain\SnackMachine\SnackMachineRepository;
+use App\Domain\SnackMachine\SnackRepository;
 use App\Kernel;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

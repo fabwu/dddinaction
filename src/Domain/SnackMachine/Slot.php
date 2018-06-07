@@ -1,8 +1,9 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\SnackMachine;
 
+use App\Domain\Common\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity */
@@ -14,12 +15,12 @@ class Slot extends Entity
     private $position;
     /**
      * @var SnackPile
-     * @ORM\Embedded(class="App\Domain\SnackPile")
+     * @ORM\Embedded(class="App\Domain\SnackMachine\SnackPile")
      */
     private $snackPile;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\SnackMachine", inversedBy="slots")
+     * @ORM\ManyToOne(targetEntity="App\Domain\SnackMachine\SnackMachine", inversedBy="slots")
      */
     private $snackMachine;
 

@@ -3,8 +3,8 @@
 
 namespace App\Database\Repository;
 
-use App\Domain\Snack;
-use App\Domain\SnackRepository;
+use App\Domain\SnackMachine\Snack;
+use App\Domain\SnackMachine\SnackRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineSnackRepository implements SnackRepository

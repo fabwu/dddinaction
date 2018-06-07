@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\SnackMachine;
 
 
+use App\Domain\Common\AggregateRoot;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity */

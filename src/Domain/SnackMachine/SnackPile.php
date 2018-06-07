@@ -1,8 +1,10 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\SnackMachine;
 
+use App\Domain\Common\InvalidOperationException;
+use App\Domain\Common\ValueObject;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Embeddable */
