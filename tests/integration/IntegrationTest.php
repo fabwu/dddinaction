@@ -28,12 +28,10 @@ class IntegrationTest extends KernelTestCase
         $chocolate  = $repository->find(Snack::Chocolate()->getId());
         $soda       = $repository->find(Snack::Soda()->getId());
         $gum        = $repository->find(Snack::Gum()->getId());
-        $none       = $repository->find(Snack::None()->getId());
 
         $this->assertEquals($chocolate->getName(), Snack::Chocolate()->getName());
         $this->assertEquals($soda->getName(), Snack::Soda()->getName());
         $this->assertEquals($gum->getName(), Snack::Gum()->getName());
-        $this->assertNull($none);
     }
 
     public function test_atm_repository(): void

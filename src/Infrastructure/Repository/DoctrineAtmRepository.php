@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Database\Repository;
+namespace App\Infrastructure\Repository;
 
 use App\Domain\Atm\Atm;
 use App\Domain\Atm\AtmRepository;

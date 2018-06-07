@@ -5,6 +5,7 @@ namespace App\UI;
 
 
 use App\Domain\Atm\AtmRepository;
+use App\Domain\Atm\PaymentGateway;
 use App\Domain\Common\InvalidOperationException;
 use App\Domain\Common\Utility;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,10 +21,12 @@ class AtmController extends Controller
     private const ATM_ID = 1;
 
     private $atmRepository;
+    private $paymentGateway;
 
-    public function __construct(AtmRepository $atmRepository)
+    public function __construct(AtmRepository $atmRepository, PaymentGateway $paymentGateway)
     {
-        $this->atmRepository = $atmRepository;
+        $this->atmRepository  = $atmRepository;
+        $this->paymentGateway = $paymentGateway;
     }
 
     /**
@@ -45,6 +48,8 @@ class AtmController extends Controller
         $atm    = $this->atmRepository->find(self::ATM_ID);
 
         try {
+            $amountWithCommission = $atm->calculateAmountWithCommission($amount);
+            $this->paymentGateway->chargePayment($amountWithCommission);
             $atm->takeMoney((float)$amount);
             $this->atmRepository->save($atm);
             $msg = 'You have taken ' . Utility::moneyToString($amount);

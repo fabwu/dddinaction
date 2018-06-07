@@ -5,13 +5,14 @@ services:
         public: true #TODO Change this after upgrade to 4.1
 
     # You have to maintain this list manually in order to decouple doctrine from Domain
-    App\Domain\SnackMachine\SnackMachineRepository: '@App\Database\Repository\DoctrineSnackMachineRepository'
-    App\Domain\SnackMachine\SnackRepository: '@App\Database\Repository\DoctrineSnackRepository'
-    App\Domain\Atm\AtmRepository: '@App\Database\Repository\DoctrineAtmRepository'
+    App\Domain\SnackMachine\SnackMachineRepository: '@App\Infrastructure\Repository\DoctrineSnackMachineRepository'
+    App\Domain\SnackMachine\SnackRepository: '@App\Infrastructure\Repository\DoctrineSnackRepository'
+    App\Domain\Atm\AtmRepository: '@App\Infrastructure\Repository\DoctrineAtmRepository'
+    App\Domain\Atm\PaymentGateway: '@App\Infrastructure\PaymentGatewayStub'
 
-    App\Database\:
-      resource: '../src/Database/*'
-      exclude: '../src/Database/Migrations'
+    App\Infrastructure\:
+      resource: '../src/Infrastructure/*'
+      exclude: '../src/Infrastructure/Migrations'
 
     App\UI\:
         resource: '../src/UI'

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Database\Repository;
+namespace App\Infrastructure\Repository;
 
 use App\Domain\SnackMachine\SnackMachine;
 use App\Domain\SnackMachine\SnackMachineRepository;

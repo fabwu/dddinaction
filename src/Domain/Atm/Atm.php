@@ -55,7 +55,7 @@ class Atm extends AggregateRoot
         }
     }
 
-    private function calculateAmountWithCommission(float $amount): float
+    public function calculateAmountWithCommission(float $amount): float
     {
         $commission   = $amount * self::COMMISSION_RATE;
         $lessThanCent = fmod($commission, 0.01);
