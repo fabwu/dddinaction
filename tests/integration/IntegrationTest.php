@@ -4,6 +4,7 @@
 namespace App\Tests\integration;
 
 use App\Domain\Atm\AtmRepository;
+use App\Domain\Management\HeadOfficeRepository;
 use App\Domain\SnackMachine\Snack;
 use App\Domain\SnackMachine\SnackMachineRepository;
 use App\Domain\SnackMachine\SnackRepository;
@@ -41,6 +42,15 @@ class IntegrationTest extends KernelTestCase
             ->find(1);
 
         $this->assertNotNull($atm);
+    }
+
+    public function test_head_office_repository(): void
+    {
+        $headOffice = $this->container
+            ->get(HeadOfficeRepository::class)
+            ->instance();
+
+        $this->assertNotNull($headOffice);
     }
 
     public static $class = Kernel::class;

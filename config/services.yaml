@@ -8,6 +8,7 @@ services:
     App\Domain\SnackMachine\SnackMachineRepository: '@App\Infrastructure\Repository\DoctrineSnackMachineRepository'
     App\Domain\SnackMachine\SnackRepository: '@App\Infrastructure\Repository\DoctrineSnackRepository'
     App\Domain\Atm\AtmRepository: '@App\Infrastructure\Repository\DoctrineAtmRepository'
+    App\Domain\Management\HeadOfficeRepository: '@App\Infrastructure\Repository\DoctrineHeadOfficeRepository'
     App\Domain\Atm\PaymentGateway: '@App\Infrastructure\PaymentGatewayStub'
 
     App\Infrastructure\:
