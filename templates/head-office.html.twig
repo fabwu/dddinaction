@@ -5,4 +5,29 @@
 {% block body %}
     <div class="col-6 text-center">Balance: <strong>{{ headOffice.balanceAsString }}</strong></div>
     <div class="col-6 text-center">Cash: <strong>{{ headOffice.cash }}</strong></div>
+
+    <div class="col-6 mt-3">
+        <h3>Snack Machines</h3>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Money Inside</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for snackMachine in snackMachines %}
+                <tr>
+                    <td>{{ snackMachine.id }}</td>
+                    <td>{{ snackMachine.moneyInside }}</td>
+                    <td>
+                        <a href="{{ path('snack-machine-overview', {id: snackMachine.id}) }}" target="_blank">Show</a> |
+                        <a href="{{ path('head-office-unload-cash', {id: snackMachine.id}) }}">Unload cash</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

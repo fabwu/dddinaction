@@ -10,7 +10,6 @@ use App\Domain\SharedKernel\Money;
 use App\Domain\SnackMachine\SnackMachineRepository;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,8 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SnackMachineController extends Controller
 {
-    private const SNACK_MACHINE_ID = 1;
-
     private $snackMachineRepository;
 
     public function __construct(SnackMachineRepository $snackMachineRepository)
@@ -29,23 +26,22 @@ class SnackMachineController extends Controller
     }
 
     /**
-     * @Route("/", name="snack-machine-overview")
+     * @Route("/{id}", name="snack-machine-overview")
      */
-    public function overview(): Response
+    public function overview($id): Response
     {
         return $this->render('snack-machine.html.twig', [
-            'snackMachine' => $this->snackMachineRepository->find(self::SNACK_MACHINE_ID),
+            'snackMachine' => $this->snackMachineRepository->find($id),
         ]);
     }
 
     /**
-     * @Route("/insert-money/{amount}", name="snack-machine-insert-money")
+     * @Route("/{id}/insert-money/{amount}", name="snack-machine-insert-money")
      */
-    public function insertMoney(Request $request)
+    public function insertMoney(int $id, string $amount)
     {
-        $amount       = $request->get('amount');
         $money        = $this->getMoney($amount);
-        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
+        $snackMachine = $this->snackMachineRepository->find($id);
 
         try {
             $snackMachine->insertMoney($money);
@@ -57,15 +53,15 @@ class SnackMachineController extends Controller
 
         $this->addFlash('info', $message);
 
-        return $this->redirectToRoute('snack-machine-overview');
+        return $this->redirectToRoute('snack-machine-overview', ['id' => $snackMachine->getId()]);
     }
 
     /**
-     * @Route("/buy-snack/{position}", name="snack-machine-buy-snack")
+     * @Route("/{id}/buy-snack/{position}", name="snack-machine-buy-snack")
      */
-    public function buySnack(int $position)
+    public function buySnack(int $id, int $position)
     {
-        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
+        $snackMachine = $this->snackMachineRepository->find($id);
 
         try {
             $snackMachine->buySnack($position);
@@ -77,15 +73,15 @@ class SnackMachineController extends Controller
 
         $this->addFlash('info', $message);
 
-        return $this->redirectToRoute('snack-machine-overview');
+        return $this->redirectToRoute('snack-machine-overview', ['id' => $snackMachine->getId()]);
     }
 
     /**
-     * @Route("/return-money", name="snack-machine-return-money")
+     * @Route("/{id}/return-money", name="snack-machine-return-money")
      */
-    public function returnMoney()
+    public function returnMoney(int $id)
     {
-        $snackMachine = $this->snackMachineRepository->find(self::SNACK_MACHINE_ID);
+        $snackMachine = $this->snackMachineRepository->find($id);
 
         try {
             $money = $snackMachine->returnMoney();
@@ -97,7 +93,7 @@ class SnackMachineController extends Controller
 
         $this->addFlash('info', $message);
 
-        return $this->redirectToRoute('snack-machine-overview');
+        return $this->redirectToRoute('snack-machine-overview', ['id' => $snackMachine->getId()]);
     }
 
     private function getMoney($amount): Money

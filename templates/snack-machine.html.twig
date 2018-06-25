@@ -16,25 +16,25 @@
     </div>
     <div class="col-6">
         <div class="d-flex justify-content-between">
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {'position': 1}) }}">Buy #1</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {'position': 2}) }}">Buy #2</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {'position': 3}) }}">Buy #3</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {id: snackMachine.id, position: 1}) }}">Buy #1</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {id: snackMachine.id, position: 2}) }}">Buy #2</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-buy-snack', {id: snackMachine.id, position: 3}) }}">Buy #3</a>
         </div>
         <p class="text-center m-3">
             Money inserted: <strong>{{ snackMachine.moneyInTransactionAsString }}</strong>
         </p>
         <div class="d-flex justify-content-between">
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'one-cent'}) }}">Put ¢1</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'ten-cent'}) }}">Put ¢10</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'quarter'}) }}">Put ¢25</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'one-cent'}) }}">Put ¢1</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'ten-cent'}) }}">Put ¢10</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'quarter'}) }}">Put ¢25</a>
         </div>
         <div class="d-flex justify-content-between mt-3">
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'one-dollar'}) }}">Put $1</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'five-dollar'}) }}">Put $5</a>
-            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {'amount': 'twenty-dollar'}) }}">Put $20</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'one-dollar'}) }}">Put $1</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'five-dollar'}) }}">Put $5</a>
+            <a class="btn btn-primary w-25" href="{{ path('snack-machine-insert-money', {id: snackMachine.id, amount: 'twenty-dollar'}) }}">Put $20</a>
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-warning w-100" href="{{ path('snack-machine-return-money') }}">Return money</a>
+            <a class="btn btn-warning w-100" href="{{ path('snack-machine-return-money', {id: snackMachine.id}) }}">Return money</a>
         </div>
     </div>
     <div class="col-12 mt-5 text-center">
