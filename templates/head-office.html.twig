@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Head Office{% endblock %}
+
+{% block body %}
+    <div class="col-6 text-center">Balance: <strong>{{ headOffice.balanceAsString }}</strong></div>
+    <div class="col-6 text-center">Cash: <strong>{{ headOffice.cash }}</strong></div>
+{% endblock %}

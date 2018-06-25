@@ -5,6 +5,7 @@ namespace App\Domain\Management;
 
 
 use App\Domain\Common\AggregateRoot;
+use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,5 +26,20 @@ class HeadOffice extends AggregateRoot
     public function changeBalance(float $delta): void
     {
         $this->balance += $delta;
+    }
+
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+
+    public function getBalanceAsString(): string
+    {
+        return Utility::moneyToString($this->balance);
+    }
+
+    public function getCash(): Money
+    {
+        return $this->cash;
     }
 }
