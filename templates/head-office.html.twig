@@ -30,4 +30,29 @@
             </tbody>
         </table>
     </div>
+
+    <div class="col-6 mt-3">
+        <h3>Atms</h3>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cash</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for atm in atms %}
+                <tr>
+                    <td>{{ atm.id }}</td>
+                    <td>{{ atm.cash }}</td>
+                    <td>
+                        <a href="{{ path('atm-overview', {id: atm.id}) }}" target="_blank">Show</a> |
+                        <a href="{{ path('head-office-load-cash', {id: atm.id}) }}">Load Cash</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

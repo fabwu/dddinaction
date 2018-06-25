@@ -18,7 +18,7 @@
             <img src="/img/20d.png" width="80px"> {{ atm.moneyInside.twentyDollarCount }}
         </p>
     </div>
-    <form class="col-12 text-center mt-5" action="{{ path('atm-take-money') }}" method="post">
+    <form class="col-12 text-center mt-5" action="{{ path('atm-take-money', {id: atm.id}) }}" method="post">
         <div class="form-group">
             <input type="text" min="0" class="form-control" title="amount" name="amount" placeholder="0">
         </div>

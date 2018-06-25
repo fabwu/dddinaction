@@ -18,8 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AtmController extends Controller
 {
-    private const ATM_ID = 1;
-
     private $atmRepository;
     private $paymentGateway;
 
@@ -30,22 +28,22 @@ class AtmController extends Controller
     }
 
     /**
-     * @Route("/", name="atm-overview")
+     * @Route("/{id}", name="atm-overview")
      */
-    public function overview(): Response
+    public function overview(int $id): Response
     {
         return $this->render('atm.html.twig', [
-            'atm' => $this->atmRepository->find(self::ATM_ID),
+            'atm' => $this->atmRepository->find($id),
         ]);
     }
 
     /**
-     * @Route("/take-money", name="atm-take-money")
+     * @Route("/{id}/take-money", name="atm-take-money")
      */
-    public function takeMoney(Request $request): Response
+    public function takeMoney(int $id, Request $request): Response
     {
         $amount = $request->get('amount');
-        $atm    = $this->atmRepository->find(self::ATM_ID);
+        $atm    = $this->atmRepository->find($id);
 
         try {
             $amountWithCommission = $atm->calculateAmountWithCommission($amount);
@@ -59,6 +57,6 @@ class AtmController extends Controller
 
         $this->addFlash('info', $msg);
 
-        return $this->redirectToRoute('atm-overview');
+        return $this->redirectToRoute('atm-overview', ['id' => $atm->getId()]);
     }
 }
