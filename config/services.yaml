@@ -4,6 +4,7 @@ services:
         autoconfigure: true
         public: true #TODO Change this after upgrade to 4.1
 
+    # Repository
     # You have to maintain this list manually in order to decouple doctrine from Domain
     App\Domain\SnackMachine\SnackMachineRepository: '@App\Infrastructure\Repository\DoctrineSnackMachineRepository'
     App\Domain\SnackMachine\SnackRepository: '@App\Infrastructure\Repository\DoctrineSnackRepository'
@@ -11,9 +12,16 @@ services:
     App\Domain\Management\HeadOfficeRepository: '@App\Infrastructure\Repository\DoctrineHeadOfficeRepository'
     App\Domain\Atm\PaymentGateway: '@App\Infrastructure\PaymentGatewayStub'
 
+    # Domain Event Handler
+    App\Domain\Management\BalanceChangedEventHandler:
+        tags: ['app.domain_event_handler']
+
     App\Infrastructure\:
       resource: '../src/Infrastructure/*'
       exclude: '../src/Infrastructure/Migrations'
+
+    App\Infrastructure\DomainEventDispatcher:
+      tags: ['doctrine.event_subscriber']
 
     App\UI\:
         resource: '../src/UI'

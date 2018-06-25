@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Infrastructure\DomainHandlerCompilerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +23,11 @@ class Kernel extends BaseKernel
     public function getLogDir()
     {
         return $this->getProjectDir() . '/var/log';
+    }
+
+    protected function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new DomainHandlerCompilerPass());
     }
 
     public function registerBundles()

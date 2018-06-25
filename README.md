@@ -18,6 +18,10 @@ the properties via reflection and can create the proxies.
 clutter up my entities with persistence logic but the other options (xml, yml, php) don't provide
 refactoring or auto-completion.
 - Doctrine doesn't support entities on embeddables so I just use the id as an integer column.
+- The domain events implementation is inspired from [this blogpost](https://beberlei.de/2013/07/24/doctrine_and_domainevents.html).
+I tried to use a more type save approach but it's still ugly due to the php type system. You also have
+to register all domain events handler manually. A compiler pass collects all tagged handlers and adds them
+to the dispatcher.
 
 I also tried to encapsulate the modules via [composer's path setting](https://getcomposer.org/doc/05-repositories.md#path). This was not useful
 because it provides no encapsulation (e.g. Domain module can access UI module) and slows

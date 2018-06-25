@@ -37,7 +37,10 @@ class Atm extends AggregateRoot
         $output            = $this->moneyInside->allocate($amount);
         $this->moneyInside = $this->moneyInside->sub($output);
 
-        $this->moneyCharged += $this->calculateAmountWithCommission($amount);
+        $amountWithCommission = $this->calculateAmountWithCommission($amount);
+        $this->moneyCharged   += $amountWithCommission;
+
+        $this->raise(new BalanceChangedEvent($amountWithCommission));
     }
 
     private function canTakeMoney(float $amount): void
