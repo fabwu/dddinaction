@@ -4,6 +4,7 @@
 namespace App\Domain\Management;
 
 
+use App\Domain\Atm\Atm;
 use App\Domain\Common\AggregateRoot;
 use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
@@ -33,6 +34,12 @@ class HeadOffice extends AggregateRoot
     {
         $money      = $snackMachine->unloadMoney();
         $this->cash = $this->cash->add($money);
+    }
+
+    public function loadCashToAtm(Atm $atm): void
+    {
+        $atm->loadMoney($this->cash);
+        $this->cash = Money::None();
     }
 
     public function getBalance(): float
