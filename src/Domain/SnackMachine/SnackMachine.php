@@ -131,6 +131,14 @@ class SnackMachine extends AggregateRoot
         $this->moneyInside = $this->moneyInside->add($money);
     }
 
+    public function unloadMoney(): Money
+    {
+        $unloadedMoney     = $this->moneyInside;
+        $this->moneyInside = Money::None();
+
+        return $unloadedMoney;
+    }
+
     private function getSlot(int $position): Slot
     {
         return $this->slots

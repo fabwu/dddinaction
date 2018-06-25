@@ -139,4 +139,15 @@ class SnackMachineTest extends TestCase
         $snackPiles[3] = SnackPile::Empty();
         $this->assertCount(3, $snackMachine->getAllSnackPiles());
     }
+
+    public function test_unload_money(): void
+    {
+        $snackMachine = new SnackMachine();
+        $snackMachine->loadMoney(Money::TenCent());
+
+        $money = $snackMachine->unloadMoney();
+
+        $this->assertEquals(0.1, $money->getAmount());
+        $this->assertEquals(0, $snackMachine->getMoneyInside()->getAmount());
+    }
 }

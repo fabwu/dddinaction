@@ -7,6 +7,7 @@ namespace App\Domain\Management;
 use App\Domain\Common\AggregateRoot;
 use App\Domain\Common\Utility;
 use App\Domain\SharedKernel\Money;
+use App\Domain\SnackMachine\SnackMachine;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity */
@@ -26,6 +27,12 @@ class HeadOffice extends AggregateRoot
     public function changeBalance(float $delta): void
     {
         $this->balance += $delta;
+    }
+
+    public function unloadCashFromSnackMachine(SnackMachine $snackMachine): void
+    {
+        $money      = $snackMachine->unloadMoney();
+        $this->cash = $this->cash->add($money);
     }
 
     public function getBalance(): float
