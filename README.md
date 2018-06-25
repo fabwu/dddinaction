@@ -2,8 +2,8 @@
 
 This is a simple snack machine implemented in PHP and following the Domain Driven Design
 principles. Everything is based on the Pluralsight course 
-[Domain Driven Design in Practice](https://www.pluralsight.com/courses/domain-driven-design-in-practice)
-by Vladimir Khorikov.
+[Domain Driven Design in Practice](https://www.pluralsight.com/courses/domain-driven-design-in-practice).
+You can find the original C# source code [here](https://github.com/vkhorikov/DddInAction).
 
 The repository contains the following branches each reflecting a module in the course:
 
