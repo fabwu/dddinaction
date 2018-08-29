@@ -1,7 +1,7 @@
 {
   "name": "fabwu/domain-driven-design-in-practice",
   "description": "PHP implementation of the DDD in Practice Pluralsight course.",
-  "license": "Apache-2.0",
+  "license": "mit",
   "type": "project",
   "authors": [
     {
