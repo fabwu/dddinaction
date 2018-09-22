@@ -41,6 +41,9 @@
             "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
         }
     },
+    "doctrine/event-manager": {
+        "version": "v1.0.0"
+    },
     "doctrine/inflector": {
         "version": "v1.3.0"
     },
@@ -55,6 +58,12 @@
     },
     "doctrine/orm": {
         "version": "v2.6.1"
+    },
+    "doctrine/persistence": {
+        "version": "v1.0.1"
+    },
+    "doctrine/reflection": {
+        "version": "v1.0.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -230,9 +239,6 @@
     "symfony/http-kernel": {
         "version": "v4.0.6"
     },
-    "symfony/lts": {
-        "version": "4-dev"
-    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -245,8 +251,14 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-ctype": {
+        "version": "v1.9.0"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.7.0"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.1.4"
     },
     "symfony/routing": {
         "version": "4.0",
