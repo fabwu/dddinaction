@@ -1,0 +1,6 @@
+language: php
+install:
+  - composer install
+script:
+  - phpunit --configuration phpunit.xml --testsuite unit
+  - phpunit --configuration phpunit.xml --testsuite integration
