@@ -9,14 +9,13 @@ use App\Domain\SnackMachine\Snack;
 use App\Domain\SnackMachine\SnackMachineRepository;
 use App\Domain\SnackMachine\SnackRepository;
 use App\Kernel;
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class IntegrationTest extends KernelTestCase
 {
     public function test_db_connection(): void
     {
-        $snackMachine = $this->container
+        $snackMachine = parent::$container
             ->get(SnackMachineRepository::class)
             ->find(1);
 
@@ -25,7 +24,7 @@ class IntegrationTest extends KernelTestCase
 
     public function test_snack_reference_data(): void
     {
-        $repository = $this->container->get(SnackRepository::class);
+        $repository = parent::$container->get(SnackRepository::class);
         $chocolate  = $repository->find(Snack::Chocolate()->getId());
         $soda       = $repository->find(Snack::Soda()->getId());
         $gum        = $repository->find(Snack::Gum()->getId());
@@ -37,7 +36,7 @@ class IntegrationTest extends KernelTestCase
 
     public function test_atm_repository(): void
     {
-        $atm = $this->container
+        $atm = parent::$container
             ->get(AtmRepository::class)
             ->find(1);
 
@@ -46,7 +45,7 @@ class IntegrationTest extends KernelTestCase
 
     public function test_head_office_repository(): void
     {
-        $headOffice = $this->container
+        $headOffice = parent::$container
             ->get(HeadOfficeRepository::class)
             ->instance();
 
@@ -55,13 +54,9 @@ class IntegrationTest extends KernelTestCase
 
     public static $class = Kernel::class;
 
-    /** @var ContainerInterface */
-    private $container;
-
     protected function setUp()
     {
-        $kernel          = self::bootKernel();
-        $this->container = $kernel->getContainer();
+        parent::bootKernel();
     }
 
     protected function tearDown()

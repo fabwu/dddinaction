@@ -3,6 +3,7 @@ php:
   - '7.2'
 install:
   - composer install
+  - php bin/console doctrine:migrations:migrate
 script:
   - phpunit --configuration phpunit.xml --testsuite unit
   - phpunit --configuration phpunit.xml --testsuite integration
