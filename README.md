@@ -1,5 +1,7 @@
 # DDD Snack Machine
 
+[![Build Status](https://travis-ci.com/fabwu/dddinaction.svg?branch=module-6)](https://travis-ci.com/fabwu/dddinaction)
+
 This is a simple snack machine implemented in PHP and following the Domain Driven Design
 principles. Everything is based on the Pluralsight course 
 [Domain Driven Design in Practice](https://www.pluralsight.com/courses/domain-driven-design-in-practice).
